@@ -1,3 +1,5 @@
 6bab5ee9
 
-ca133d2a2fa905d51c234a369df08f74	
+ca133d2a2fa905d51c234a369df08f74
+
+https://api.edamam.com/api/food-database/parser?app_id=6bab5ee9&app_key=ca133d2a2fa905d51c234a369df08f74&ingr=dal

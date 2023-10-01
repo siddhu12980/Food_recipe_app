@@ -1,6 +1,7 @@
 // ignore_for_file: file_names
 
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -13,8 +14,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  //  late Future<Map<String, dynamic>> weather; - we are creating somthing like a var
-
   late Future<Map<String, dynamic>> recipe;
 
   final String appId = '6bab5ee9';
@@ -32,10 +31,6 @@ class _HomeScreenState extends State<HomeScreen> {
       final res = await http.get(url);
       final data = jsonDecode(res.body);
 
-      if (data['cod'] != '200') {
-        throw " unexpected error";
-      }
-      print(data);
       return data;
     } catch (e) {
       throw e.toString();
@@ -95,59 +90,59 @@ class _HomeScreenState extends State<HomeScreen> {
             return const Center(child: CircularProgressIndicator.adaptive());
           }
           if (snapshot.hasError) {
-            return const Center(child: (Text("Server Error")));
+            String chaaka = snapshot.error.toString();
+            return Center(child: Text(chaaka));
           }
 
           final data = snapshot.data!;
-          final recp = data['hits'][1]["recipe"]["label"];
+          final recp = data['hits'][1]['recipe']['label'];
 
-          return Center(
-            //////////////////////////////////////////////
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  const SizedBox(
-                    height: 10,
+          final img = data['hits'][1]['recipe']['image'];
+
+          // print(recp);
+
+          return Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  width: double.infinity,
+                  // height: 150,
+
+                  color: Colors.green,
+                  child: Image.network(
+                    "https://images.unsplash.com/photo-1547721064-da6cfb341d50",
+                    fit: BoxFit.fitWidth,
                   ),
 
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  const Placeholder(
-                    fallbackHeight: 80,
-                  ),
-                  Text(recp),
-                  // const SizedBox(
-                  //   height: 30,
+                  // child: Banner(
+                  //   message: "hi",
+                  //   location: BannerLocation.topEnd,
+                  //   color: Colors.red,
+                  //   child: Container(
+                  //     margin: const EdgeInsets.all(10.0),
+                  //     color: Colors.yellow,
+                  //     height: 100,
+                  //     child: Image.network(img),
+                  //   ),
                   // ),
-                  // const Placeholder(
-                  //   fallbackHeight: 80,
-                  // ),
-
-                  // const SizedBox(
-                  //   height: 30,
-                  // ),
-                  // const Placeholder(
-                  //   fallbackHeight: 120,
-                  // ),
-
-                  //  TextField()
-
-                  // const Placeholder(
-                  //   fallbackHeight: 160,
-                  // ),
-
-                  // const Placeholder(
-                  //   fallbackHeight: 160,
-                  // ),
-                  // const Placeholder(
-                  //   fallbackHeight: 160,
-                  // ),
-                  // const Placeholder(
-                  //   fallbackHeight: 160,
-                  // ),
-                ],
-              ),
+                ),
+                Container(
+                  height: 140,
+                  color: Colors.blue,
+                  child: Image.asset('ban1'),
+                ),
+                Container(
+                  height: 140,
+                  color: Colors.red,
+                ),
+                SizedBox(
+                  height: 100,
+                  child: Image.network(img),
+                ),
+                Text('$recp'),
+              ],
             ),
           );
         },
