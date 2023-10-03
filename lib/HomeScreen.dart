@@ -1,10 +1,12 @@
 // ignore_for_file: file_names
 
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:third_proj2/navbar.dart';
+import 'package:third_proj2/recipe_card.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -14,6 +16,10 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  Future<void> loadImage(String imageUrl) async {
+    await CachedNetworkImageProvider(imageUrl).loadImage(ImageConfiguration());
+  }
+
   late Future<Map<String, dynamic>> recipe;
 
   final String appId = '6bab5ee9';
@@ -46,43 +52,8 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        actions: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: IconButton(
-              onPressed: () {
-                print("hi");
-              },
-              icon: const Icon(
-                Icons.search,
-                size: 30,
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: IconButton(
-              onPressed: () {
-                print("searching");
-              },
-              icon: const Icon(
-                Icons.person,
-                size: 30,
-              ),
-            ),
-          ),
-        ],
-
-        title: const Text(
-          "Reciepe Book",
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        // centerTitle: true,
-        // backgroundColor: const Color.fromARGB(255, 118, 231, 122),
-      ),
+      appBar: appbar(),
+      bottomNavigationBar: navbar(),
       body: FutureBuilder(
         future: recipe,
         builder: (context, snapshot) {
@@ -101,49 +72,102 @@ class _HomeScreenState extends State<HomeScreen> {
 
           // print(recp);
 
-          return Padding(
-            padding: const EdgeInsets.all(15.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Container(
-                  width: double.infinity,
-                  // height: 150,
+          return FutureBuilder(
+            future: loadImage(img),
+            builder: (context, imageSnapshot) {
+              if (imageSnapshot.connectionState == ConnectionState.waiting) {
+                return const Center(
+                    child: CircularProgressIndicator.adaptive());
+              }
+              if (imageSnapshot.hasError) {
+                String imageErrorMessage = imageSnapshot.error.toString();
+                return Center(
+                    child: Text('Error loading image: $imageErrorMessage'));
+              }
 
-                  color: Colors.green,
-                  child: Image.network(
-                    "https://images.unsplash.com/photo-1547721064-da6cfb341d50",
-                    fit: BoxFit.fitWidth,
+              return SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.all(15.0),
+                  child: Column(
+                    // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      SizedBox(
+                        height: 160,
+                        child: Image.asset(
+                          'images/ban1.jpeg',
+                          fit: BoxFit.fill,
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                      SizedBox(
+                        height: 160,
+                        child: Image.asset(
+                          'images/ban2.jpeg',
+                          fit: BoxFit.fill,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      SizedBox(
+                        height: 255,
+                        child: ListView.builder(
+                          itemCount: 10,
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (context, index) {
+                            final recp = data['hits'][index]['recipe']['label'];
+                            final img = data['hits'][index]['recipe']['image'];
+
+                            return recipecard(
+                              label: recp,
+                              image: img,
+                            );
+                          },
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      SizedBox(
+                        height: 200,
+                        child: Image.asset(
+                          'images/main.jpeg',
+                          fit: BoxFit.fill,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 200,
+                        child: Image.asset(
+                          'images/side.jpeg',
+                          fit: BoxFit.fill,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 200,
+                        child: Image.asset(
+                          'images/snack.jpeg',
+                          fit: BoxFit.fill,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 200,
+                        child: Image.asset(
+                          'images/rice.jpeg',
+                          fit: BoxFit.fill,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 200,
+                        child: Image.asset(
+                          'images/soup.jpeg',
+                          fit: BoxFit.fill,
+                        ),
+                      ),
+                    ],
                   ),
-
-                  // child: Banner(
-                  //   message: "hi",
-                  //   location: BannerLocation.topEnd,
-                  //   color: Colors.red,
-                  //   child: Container(
-                  //     margin: const EdgeInsets.all(10.0),
-                  //     color: Colors.yellow,
-                  //     height: 100,
-                  //     child: Image.network(img),
-                  //   ),
-                  // ),
                 ),
-                Container(
-                  height: 140,
-                  color: Colors.blue,
-                  child: Image.asset('ban1'),
-                ),
-                Container(
-                  height: 140,
-                  color: Colors.red,
-                ),
-                SizedBox(
-                  height: 100,
-                  child: Image.network(img),
-                ),
-                Text('$recp'),
-              ],
-            ),
+              );
+            },
           );
         },
       ),

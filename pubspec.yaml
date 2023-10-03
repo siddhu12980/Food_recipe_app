@@ -36,10 +36,18 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   http: ^1.1.0
+  cached_network_image: ^3.3.0
 
 dev_dependencies:
+  
+  flutter_launcher_icons: ^0.13.1
+  
+
+
   flutter_test:
     sdk: flutter
+  
+
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
@@ -47,7 +55,7 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
-
+  
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
@@ -66,6 +74,13 @@ flutter:
   assets:
     - images/ban1.jpeg
     - images/ban2.jpeg
+    - images/rice.jpeg
+    - images/snack.jpeg
+    - images/pizza.jpeg
+    - images/side.jpeg
+    - images/main.jpeg
+    - images/health.jpeg
+    - images/soup.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 
@@ -91,3 +106,18 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+
+
+# dev_dependencies: 
+#   flutter_launcher_icons: "latest version"
+
+#   flutter_icons:
+#     android: true
+#     ios: true
+#     image_path: "images/food_icon/1024.png"
+flutter_icons:
+    android: true
+    image_path: "images/food_icon/1024.png"
+
+
+
