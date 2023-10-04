@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:third_proj2/navbar.dart';
 import 'package:third_proj2/recipe_card.dart';
+import 'package:third_proj2/box.dart';
 // import 'package:cached_network_image/cached_network_image.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -18,8 +19,15 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   // Future<void> loadImage(String imageUrl) async {
   //   await CachedNetworkImageProvider(imageUrl).loadImage(ImageConfiguration());
-  // }
 
+  // }
+  List<String> imgs = <String>[
+    'images/main.jpeg',
+    'images/side.jpeg',
+    'images/snack.jpeg',
+    'mages/rice.jpeg',
+    'images/soup.jpeg',
+  ];
   late Future<Map<String, dynamic>> recipe;
 
   final String appId = '6bab5ee9';
@@ -125,44 +133,17 @@ class _HomeScreenState extends State<HomeScreen> {
                       },
                     ),
                   ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  SizedBox(
-                    height: 200,
-                    child: Image.asset(
-                      'images/main.jpeg',
-                      fit: BoxFit.fill,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 200,
-                    child: Image.asset(
-                      'images/side.jpeg',
-                      fit: BoxFit.fill,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 200,
-                    child: Image.asset(
-                      'images/snack.jpeg',
-                      fit: BoxFit.fill,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 200,
-                    child: Image.asset(
-                      'images/rice.jpeg',
-                      fit: BoxFit.fill,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 200,
-                    child: Image.asset(
-                      'images/soup.jpeg',
-                      fit: BoxFit.fill,
-                    ),
-                  ),
+
+                  // for (int i = 1; i <= imgs.length;i++)
+                  // {
+
+                  // }
+
+                  box(link: imgs[0]),
+                  box(link: imgs[1]),
+                  box(link: imgs[2]),
+                  box(link: imgs[3]),
+                  box(link: imgs[4]),
                 ],
               ),
             ),
