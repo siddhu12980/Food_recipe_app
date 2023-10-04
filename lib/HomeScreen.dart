@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:third_proj2/navbar.dart';
 import 'package:third_proj2/recipe_card.dart';
-import 'package:cached_network_image/cached_network_image.dart';
+// import 'package:cached_network_image/cached_network_image.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -16,9 +16,9 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  Future<void> loadImage(String imageUrl) async {
-    await CachedNetworkImageProvider(imageUrl).loadImage(ImageConfiguration());
-  }
+  // Future<void> loadImage(String imageUrl) async {
+  //   await CachedNetworkImageProvider(imageUrl).loadImage(ImageConfiguration());
+  // }
 
   late Future<Map<String, dynamic>> recipe;
 
@@ -66,109 +66,109 @@ class _HomeScreenState extends State<HomeScreen> {
           }
 
           final data = snapshot.data!;
-          final recp = data['hits'][1]['recipe']['label'];
+          // final recp = data['hits'][1]['recipe']['label'];
 
-          final img = data['hits'][1]['recipe']['image'];
+          // final img = data['hits'][1]['recipe']['image'];
 
           // print(recp);
 
-          return FutureBuilder(
-            future: loadImage(img),
-            builder: (context, imageSnapshot) {
-              if (imageSnapshot.connectionState == ConnectionState.waiting) {
-                return const Center(
-                    child: CircularProgressIndicator.adaptive());
-              }
-              if (imageSnapshot.hasError) {
-                String imageErrorMessage = imageSnapshot.error.toString();
-                return Center(
-                    child: Text('Error loading image: $imageErrorMessage'));
-              }
+          // return           FutureBuilder(
+          //   future: loadImage(img),
+          //   builder: (context, imageSnapshot) {
+          //     if (imageSnapshot.connectionState == ConnectionState.waiting) {
+          //       return const Center(
+          //           child: CircularProgressIndicator.adaptive());
+          //     }
+          //     if (imageSnapshot.hasError) {
+          //       String imageErrorMessage = imageSnapshot.error.toString();
+          //       return Center(
+          //           child: Text('Error loading image: $imageErrorMessage'));
+          //     }
 
-              return SingleChildScrollView(
-                child: Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  child: Column(
-                    // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      SizedBox(
-                        height: 160,
-                        child: Image.asset(
-                          'images/ban1.jpeg',
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                      const SizedBox(height: 20),
-                      SizedBox(
-                        height: 160,
-                        child: Image.asset(
-                          'images/ban2.jpeg',
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      SizedBox(
-                        height: 255,
-                        child: ListView.builder(
-                          itemCount: 10,
-                          scrollDirection: Axis.horizontal,
-                          itemBuilder: (context, index) {
-                            final recp = data['hits'][index]['recipe']['label'];
-                            final img = data['hits'][index]['recipe']['image'];
-
-                            return recipecard(
-                              label: recp,
-                              image: img,
-                            );
-                          },
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      SizedBox(
-                        height: 200,
-                        child: Image.asset(
-                          'images/main.jpeg',
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 200,
-                        child: Image.asset(
-                          'images/side.jpeg',
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 200,
-                        child: Image.asset(
-                          'images/snack.jpeg',
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 200,
-                        child: Image.asset(
-                          'images/rice.jpeg',
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 200,
-                        child: Image.asset(
-                          'images/soup.jpeg',
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                    ],
+          return SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: Column(
+                // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  SizedBox(
+                    height: 160,
+                    child: Image.asset(
+                      'images/ban1.jpeg',
+                      fit: BoxFit.fill,
+                    ),
                   ),
-                ),
-              );
-            },
+                  const SizedBox(height: 20),
+                  SizedBox(
+                    height: 160,
+                    child: Image.asset(
+                      'images/ban2.jpeg',
+                      fit: BoxFit.fill,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  SizedBox(
+                    height: 255,
+                    child: ListView.builder(
+                      itemCount: 10,
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (context, index) {
+                        final recp = data['hits'][index]['recipe']['label'];
+                        final img = data['hits'][index]['recipe']['image'];
+
+                        return recipecard(
+                          label: recp,
+                          image: img,
+                        );
+                      },
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  SizedBox(
+                    height: 200,
+                    child: Image.asset(
+                      'images/main.jpeg',
+                      fit: BoxFit.fill,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 200,
+                    child: Image.asset(
+                      'images/side.jpeg',
+                      fit: BoxFit.fill,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 200,
+                    child: Image.asset(
+                      'images/snack.jpeg',
+                      fit: BoxFit.fill,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 200,
+                    child: Image.asset(
+                      'images/rice.jpeg',
+                      fit: BoxFit.fill,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 200,
+                    child: Image.asset(
+                      'images/soup.jpeg',
+                      fit: BoxFit.fill,
+                    ),
+                  ),
+                ],
+              ),
+            ),
           );
+          // }, //{ fro builder}
+          // ); // for future builder
         },
       ),
     );
