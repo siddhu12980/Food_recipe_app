@@ -15,13 +15,9 @@ For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
 
-
-
 # How flutter flow works
 
-
-
-#### -> Here's a summary of the flow:
+#### -> Here's a summary of the flow
 
 1. **`late` Keyword:**
    - `late` is used to declare a variable that will be initialized at a later point, ensuring that it's assigned a value before it's used.
@@ -44,3 +40,25 @@ In practice, this is how it works:
 - After the `Future` is initialized and the asynchronous operation completes, Flutter triggers a rebuild and calls the `build` method. Inside `build`, you use `FutureBuilder` to handle the different states of `myFuture` (e.g., loading, success, error) and construct the UI based on the `Future`'s result.
 
 By utilizing this flow, you can handle asynchronous operations and display the appropriate UI based on the outcome of those operations in your Flutter application.
+
+```
+
+void fetchRecipes({String query = 'chicken'}) {
+  // Function implementation
+  print('Fetching recipes for query: $query');
+}
+
+void main() {
+  // Calling the function with a named parameter
+  fetchRecipes(query: 'pasta');
+}
+
+```
+
+>In this example:
+
+>The fetchRecipes function uses a named parameter query with a default value of 'chicken'.
+Inside the main function, we call fetchRecipes and provide a specific query for pasta, overriding the default value.
+When you run this, it will print:
+
+``Fetching recipes for query: pasta``
