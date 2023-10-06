@@ -21,11 +21,22 @@ class _HomeScreenState extends State<HomeScreen> {
   //   await CachedNetworkImageProvider(imageUrl).loadImage(ImageConfiguration());
 
   // }
+
+  Widget customSearchBar = const Text(
+    'Recipe Book',
+    style: TextStyle(
+      fontWeight: FontWeight.bold,
+    ),
+  );
+  Icon customIcon = const Icon(
+    Icons.search,
+    size: 30,
+  );
   List<String> imgs = <String>[
     'images/main.jpeg',
     'images/side.jpeg',
     'images/snack.jpeg',
-    'mages/rice.jpeg',
+    'images/rice.jpeg',
     'images/soup.jpeg',
   ];
   late Future<Map<String, dynamic>> recipe;
@@ -60,7 +71,70 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appbar(),
+      appBar: AppBar(
+        actions: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: IconButton(
+              onPressed: () {
+                setState(() {
+                  if (customIcon.icon == Icons.search) {
+                    customIcon = const Icon(Icons.cancel);
+                    customSearchBar = const ListTile(
+                      leading: Icon(
+                        Icons.search,
+                        color: Colors.white,
+                        size: 28,
+                      ),
+                      title: TextField(
+                        decoration: InputDecoration(
+                          hintText: 'search for recepie',
+                          hintStyle: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                            fontStyle: FontStyle.italic,
+                          ),
+                          border: InputBorder.none,
+                        ),
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
+                      ),
+                    );
+                  } else {
+                    customIcon = const Icon(
+                      Icons.search,
+                      size: 30,
+                    );
+                    customSearchBar = const Text(
+                      'Reciepe Book',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    );
+                  }
+                });
+              },
+              icon: customIcon,
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: IconButton(
+              onPressed: () {},
+              icon: const Icon(
+                Icons.person,
+                size: 30,
+              ),
+            ),
+          ),
+        ],
+
+        title: customSearchBar,
+
+        // centerTitle: true,
+        // backgroundColor: const Color.fromARGB(255, 118, 231, 122),
+      ),
       bottomNavigationBar: navbar(),
       body: FutureBuilder(
         future: recipe,
@@ -74,36 +148,20 @@ class _HomeScreenState extends State<HomeScreen> {
           }
 
           final data = snapshot.data!;
-          // final recp = data['hits'][1]['recipe']['label'];
-
-          // final img = data['hits'][1]['recipe']['image'];
-
-          // print(recp);
-
-          // return           FutureBuilder(
-          //   future: loadImage(img),
-          //   builder: (context, imageSnapshot) {
-          //     if (imageSnapshot.connectionState == ConnectionState.waiting) {
-          //       return const Center(
-          //           child: CircularProgressIndicator.adaptive());
-          //     }
-          //     if (imageSnapshot.hasError) {
-          //       String imageErrorMessage = imageSnapshot.error.toString();
-          //       return Center(
-          //           child: Text('Error loading image: $imageErrorMessage'));
-          //     }
 
           return SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.all(15.0),
               child: Column(
-                // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  SizedBox(
-                    height: 160,
-                    child: Image.asset(
-                      'images/ban1.jpeg',
-                      fit: BoxFit.fill,
+                  Card(
+                    elevation: 20,
+                    child: SizedBox(
+                      height: 160,
+                      child: Image.asset(
+                        'images/ban1.jpeg',
+                        fit: BoxFit.fill,
+                      ),
                     ),
                   ),
                   const SizedBox(height: 20),
@@ -133,12 +191,6 @@ class _HomeScreenState extends State<HomeScreen> {
                       },
                     ),
                   ),
-
-                  // for (int i = 1; i <= imgs.length;i++)
-                  // {
-
-                  // }
-
                   box(link: imgs[0]),
                   box(link: imgs[1]),
                   box(link: imgs[2]),
