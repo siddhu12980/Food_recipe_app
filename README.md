@@ -1,64 +1,72 @@
-# third_proj2
+# Flutter Recipe App using Edamam Food Recipe API
 
-A new Flutter project.
+This Flutter app allows users to access a collection of recipes using the Edamam Food Recipe API. It provides a user-friendly interface to browse, search, and view various recipes for a delightful cooking experience.
+
+## Table of Contents
+
+- [Features](#features)
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+- [Usage](#usage)
+- [Contributing](#contributing)
+- [License](#license)
+
+## Features
+
+- **Recipe Search:** Users can search for recipes based on specific ingredients, cuisine, diet, meal type, and more.
+- **Detailed Recipe Information:** Users can view detailed information about each recipe, including ingredients, instructions, and nutritional facts.
+- **Interactive UI:** An intuitive and appealing user interface for an enhanced user experience.
+- **API Integration:** Utilizes the Edamam Food Recipe API to fetch recipe data.
+
+
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+### Prerequisites
 
-A few resources to get you started if this is your first Flutter project:
+- [Flutter](https://flutter.dev/) installed on your machine.
+- [Edamam Food Recipe API credentials](https://developer.edamam.com/edamam-recipe-api) (App ID and App Key).
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+### Installation
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+1. Clone the repository:
 
-# How flutter flow works
+   ```bash
+   git clone https://github.com/siddhu12980/Food_recipe_app.git
 
-#### -> Here's a summary of the flow
+2. Navigate to the project directory:
+   
+   ```bash
+   cd your-repo
 
-1. **`late` Keyword:**
-   - `late` is used to declare a variable that will be initialized at a later point, ensuring that it's assigned a value before it's used.
+3. Install dependencies:
+   
+   ```bash
+   flutter pub get
 
-2. **`Future` for Asynchronous Operations:**
-   - `Future` is used to represent a potential value or error that will be available at some time in the future. It's commonly used for asynchronous operations like network requests.
+4. Configure the API credentials:
+  
+  - Create a new file `secret.dart` inside the lib 
+  directory
+  - Inside `secret.dart`, define the API credentials
+    
+    ```bash
+    const String edamamAppId = 'YOUR_APP_ID';
+    const String edamamAppKey = 'YOUR_APP_KEY';
 
-3. **`initState`:**
-   - `initState` is called when a `StatefulWidget` is inserted into the widget tree, allowing you to perform one-time initialization, including initializing variables, particularly `late` variables that may involve asynchronous operations.
+# Usage
 
-4. **`build`:**
-   - `build` is called to create the elements of the user interface. It's where you construct the widget hierarchy based on the current state of the widget, including displaying data retrieved from a `Future`.
+1. Run the app:
+  
+    ```bash
+    flutter run
 
-In practice, this is how it works:
+2. Open the app on your emulator or device to explore and search for recipes.
 
-- You use `late Future<Type> myFuture;` to declare a `late` variable named `myFuture` of type `Future<Type>`. This variable will hold a `Future` representing the asynchronous operation.
+# Contributing 
 
-- Inside `initState`, you initialize `myFuture` by invoking an asynchronous operation (e.g., a network request) that returns a `Future`, and assign it to `myFuture`. This ensures that the `Future` is set up for later use in the widget.
+> Contributing
+Contributions are welcome! Feel free to open issues or pull requests for any improvements or features you'd like to add.
 
-- After the `Future` is initialized and the asynchronous operation completes, Flutter triggers a rebuild and calls the `build` method. Inside `build`, you use `FutureBuilder` to handle the different states of `myFuture` (e.g., loading, success, error) and construct the UI based on the `Future`'s result.
 
-By utilizing this flow, you can handle asynchronous operations and display the appropriate UI based on the outcome of those operations in your Flutter application.
-
-```
-
-void fetchRecipes({String query = 'chicken'}) {
-  // Function implementation
-  print('Fetching recipes for query: $query');
-}
-
-void main() {
-  // Calling the function with a named parameter
-  fetchRecipes(query: 'pasta');
-}
-
-```
-
->In this example:
-
->The fetchRecipes function uses a named parameter query with a default value of 'chicken'.
-Inside the main function, we call fetchRecipes and provide a specific query for pasta, overriding the default value.
-When you run this, it will print:
-
-``Fetching recipes for query: pasta``
