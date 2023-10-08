@@ -19,8 +19,6 @@ This Flutter app allows users to access a collection of recipes using the Edamam
 - **Interactive UI:** An intuitive and appealing user interface for an enhanced user experience.
 - **API Integration:** Utilizes the Edamam Food Recipe API to fetch recipe data.
 
-
-
 ## Getting Started
 
 ### Prerequisites
@@ -36,26 +34,26 @@ This Flutter app allows users to access a collection of recipes using the Edamam
    git clone https://github.com/siddhu12980/Food_recipe_app.git
 
 2. Navigate to the project directory:
-   
+
    ```bash
    cd Food_recipe_app
 
 3. Install dependencies:
-   
+
    ```bash
    flutter pub get
 
 4. Configure the API credentials:
   
-  - Create a new file `secret.dart` inside the lib 
+- Create a new file `secret.dart` inside the lib
   directory
-  - Inside `secret.dart`, define the API credentials
-    
+- Inside `secret.dart`, define the API credentials
+
     ```bash
     const String edamamAppId = 'YOUR_APP_ID';
     const String edamamAppKey = 'YOUR_APP_KEY';
 
-# Usage
+## Usage
 
 1. Run the app:
   
@@ -64,7 +62,11 @@ This Flutter app allows users to access a collection of recipes using the Edamam
 
 2. Open the app on your emulator or device to explore and search for recipes.
 
-# Contributing 
+## Contributing
 
-> Contributing
+ Contributing
 Contributions are welcome! Feel free to open issues or pull requests for any improvements or features you'd like to add.
+
+## license
+
+>This project is licensed under the MIT License.
