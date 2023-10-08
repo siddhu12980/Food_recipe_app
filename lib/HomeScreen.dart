@@ -1,8 +1,6 @@
 // ignore: file_names
 import 'dart:convert';
 
-import 'dart:io';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:third_proj2/navbar.dart';
@@ -19,6 +17,38 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final TextEditingController recepieName = TextEditingController();
+
+  Future<void> _lunchurl(String url) async {
+    // final datas = await fetchRecipes(query: query);
+
+    // final url = datas['hits'][1]['recipe']['url'];
+
+    String cleanedUrl = url;
+    // Remove "http://" or "https://" if present
+    if (cleanedUrl.startsWith('http://')) {
+      cleanedUrl = cleanedUrl.substring(7);
+    } else if (cleanedUrl.startsWith('https://')) {
+      cleanedUrl = cleanedUrl.substring(8);
+    }
+
+    // Split the cleaned URL by '/'
+    List<String> urlParts = cleanedUrl.split('/');
+
+    // The first part will be the domain
+    String domain = urlParts.isNotEmpty ? urlParts[0] : '';
+
+    // The remaining parts will be the path/query parameters
+    String remaining = urlParts.skip(1).join('/');
+
+    final Uri uri = Uri(scheme: "http", host: domain, path: remaining);
+
+    if (!await launchUrl(
+      uri,
+      mode: LaunchMode.externalApplication,
+    )) {
+      throw "Cannot Lunch url";
+    }
+  }
 
   Widget customSearchBar = const Text(
     'Recipe Book',
@@ -172,22 +202,29 @@ class _HomeScreenState extends State<HomeScreen> {
               padding: const EdgeInsets.all(15.0),
               child: Column(
                 children: [
+                  //now fetch using query -pizza + from query get data and filter url and use lunch url
                   Card(
                     elevation: 20,
-                    child: SizedBox(
-                      height: 160,
-                      child: Image.asset(
-                        'images/ban1.jpeg',
-                        fit: BoxFit.fill,
+                    child: GestureDetector(
+                      onTap: () => _searchRecipes("trending"),
+                      child: SizedBox(
+                        height: 160,
+                        child: Image.asset(
+                          'images/ban1.jpeg',
+                          fit: BoxFit.fill,
+                        ),
                       ),
                     ),
                   ),
-                  const SizedBox(height: 20),
-                  SizedBox(
-                    height: 160,
-                    child: Image.asset(
-                      'images/ban2.jpeg',
-                      fit: BoxFit.fill,
+
+                  GestureDetector(
+                    onTap: () => _searchRecipes("Pizza"),
+                    child: SizedBox(
+                      height: 160,
+                      child: Image.asset(
+                        'images/ban2.jpeg',
+                        fit: BoxFit.fill,
+                      ),
                     ),
                   ),
                   const SizedBox(
@@ -202,24 +239,35 @@ class _HomeScreenState extends State<HomeScreen> {
                         final recp = data['hits'][index]['recipe']['label'];
                         final img = data['hits'][index]['recipe']['image'];
 
-                        return recipecard(
-                          label: recp,
-                          image: img,
+                        return GestureDetector(
+                          onTap: () =>
+                              _lunchurl(data['hits'][index]['recipe']['url']),
+                          child: recipecard(
+                            label: recp,
+                            image: img,
+                          ),
                         );
                       },
                     ),
                   ),
-                  InkWell(
-                    onTap: () => () {
-                      print("tapped");
-                      _searchRecipes('Lunch');
-                    },
-                    child: const SizedBox(child: Text("hi")),
-                  ),
-                  box(link: imgs[0]),
-                  box(link: imgs[2]),
-                  box(link: imgs[3]),
-                  box(link: imgs[4]),
+                  // GestureDetector(
+                  //   //query -lunch -fetch -url -lunch url
+                  //   onTap: () => _lunchurl("lunch"),
+                  //   child: const Text("Click me"),
+                  // ),
+
+                  GestureDetector(
+                      onTap: () => _searchRecipes("lunch"),
+                      child: box(link: imgs[0])),
+                  GestureDetector(
+                      onTap: () => _searchRecipes("snacks"),
+                      child: box(link: imgs[2])),
+                  GestureDetector(
+                      onTap: () => _searchRecipes("Rice"),
+                      child: box(link: imgs[3])),
+                  GestureDetector(
+                      onTap: () => _searchRecipes("soup"),
+                      child: box(link: imgs[4])),
                 ],
               ),
             ),
