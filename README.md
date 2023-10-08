@@ -38,7 +38,7 @@ This Flutter app allows users to access a collection of recipes using the Edamam
 2. Navigate to the project directory:
    
    ```bash
-   cd your-repo
+   cd Food_recipe_app
 
 3. Install dependencies:
    
@@ -68,5 +68,3 @@ This Flutter app allows users to access a collection of recipes using the Edamam
 
 > Contributing
 Contributions are welcome! Feel free to open issues or pull requests for any improvements or features you'd like to add.
-
-
