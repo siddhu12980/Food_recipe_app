@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:third_proj2/key.dart';
 import 'package:third_proj2/navbar.dart';
 import 'package:third_proj2/recipe_card.dart';
 import 'package:third_proj2/box.dart';
@@ -19,10 +20,6 @@ class _HomeScreenState extends State<HomeScreen> {
   final TextEditingController recepieName = TextEditingController();
 
   Future<void> _lunchurl(String url) async {
-    // final datas = await fetchRecipes(query: query);
-
-    // final url = datas['hits'][1]['recipe']['url'];
-
     String cleanedUrl = url;
     // Remove "http://" or "https://" if present
     if (cleanedUrl.startsWith('http://')) {
@@ -71,17 +68,6 @@ class _HomeScreenState extends State<HomeScreen> {
   ];
 
   late Future<Map<String, dynamic>> recipe;
-
-  // Future<void> _launchUrl(String url) async {
-  //   if (await canLaunchUrl(url)) {
-  //     await launchUrl(url as Uri);
-  //   } else {
-  //     throw 'Could not launch $url';
-  //   }
-  // }
-
-  final String appId = '6bab5ee9';
-  final String appKey = 'ca133d2a2fa905d51c234a369df08f74';
 
   Future<Map<String, dynamic>> fetchRecipes({String query = 'chicken'}) async {
 // Sample query (I can change it)
@@ -191,8 +177,7 @@ class _HomeScreenState extends State<HomeScreen> {
             return const Center(child: CircularProgressIndicator.adaptive());
           }
           if (snapshot.hasError) {
-            String chaaka = snapshot.error.toString();
-            return Center(child: Text(chaaka));
+            return const Center(child: Text("connection error"));
           }
 
           final data = snapshot.data!;
@@ -202,7 +187,6 @@ class _HomeScreenState extends State<HomeScreen> {
               padding: const EdgeInsets.all(15.0),
               child: Column(
                 children: [
-                  //now fetch using query -pizza + from query get data and filter url and use lunch url
                   Card(
                     elevation: 20,
                     child: GestureDetector(
@@ -216,7 +200,6 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                   ),
-
                   GestureDetector(
                     onTap: () => _searchRecipes("Pizza"),
                     child: SizedBox(
@@ -250,12 +233,6 @@ class _HomeScreenState extends State<HomeScreen> {
                       },
                     ),
                   ),
-                  // GestureDetector(
-                  //   //query -lunch -fetch -url -lunch url
-                  //   onTap: () => _lunchurl("lunch"),
-                  //   child: const Text("Click me"),
-                  // ),
-
                   GestureDetector(
                       onTap: () => _searchRecipes("lunch"),
                       child: box(link: imgs[0])),
